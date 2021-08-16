@@ -10,18 +10,14 @@ file = 'btc-usd-max.csv';
 %% normalize features
 
 X_train = normalize(X_train);
-X_val = normalize(X_val);
-X_test = normalize(X_test);
+%X_val = normalize(X_val);
+%X_test = normalize(X_test);
 
 %% random initialize theta
 % todo!
-%theta = rand(size(X_train,2), 1);
-theta = zeros(size(X_train,2), 1);
+theta = rand(size(X_train,2), 1);
+%theta = zeros(size(X_train,2), 1);
 %% run gradient descent
-
-% TODO ISSUE: cost is huge and blows up to infiniti
-% update1: algorithm works, eliminate features? (year?) +update to git
-% update2: got rid of year, applied normaliation, now it works.
 
 %TODO: introduce poly features (^2, ^3)
 

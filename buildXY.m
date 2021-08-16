@@ -6,16 +6,11 @@ table = readtable(file, 'Delimiter', {',', '-', ' '});
 
 
 %generate features from table columns, and convert to matrix
-year = table2array(table(:, 1));
 month = table2array(table(:, 2));
 day = table2array(table(:, 3));
 price = table2array(table(:, 6));
 marketcap = table2array(table(:, 7));
 volume = table2array(table(:, 8));
-
-%generate new features
-%%%asd
-%%%asd
 
 %calc gradients
 dailyPriceChangeVal = diff(price);
@@ -24,19 +19,31 @@ dailyPriceChangeVal = diff(price);
 dailyPriceChangePerc = ...
    (dailyPriceChangeVal ./ (price(2:end) - dailyPriceChangeVal)) * 100;
 
+%generate polynomial features
+month2 = month.^2;
+day2 = day.^2;
+marketcap2 = marketcap.^2;
+volume2 = volume.^2;
+dailyPriceChangeVal2 = dailyPriceChangeVal.^2;
+dailyPriceChangePerc2 = dailyPriceChangePerc.^2;
+
+
 %assign data matrix:
 
 %first 2 entries dont have prev. day gradient, neither does 1st diff
 %values -->we ignore them
 
-% data = [year(3:end), month(3:end), day(3:end), marketcap(3:end), ...
+data = [month(3:end), month2(3:end), ...
+        day(3:end), day2(3:end), ...
+        marketcap(3:end), marketcap2(3:end), ...
+        volume(3:end), volume2(3:end), ...
+        dailyPriceChangeVal(1:end-1), dailyPriceChangeVal2(1:end-1), ...
+        dailyPriceChangePerc(1:end-1), dailyPriceChangePerc2(1:end-1)];
+
+%linear features only:
+% data = [month(3:end), day(3:end), marketcap(3:end), ...
 %         volume(3:end), dailyPriceChangeVal(1:end-1), ...
 %         dailyPriceChangePerc(1:end-1), price(3:end)];
-
-%without year:
-data = [month(3:end), day(3:end), marketcap(3:end), ...
-        volume(3:end), dailyPriceChangeVal(1:end-1), ...
-        dailyPriceChangePerc(1:end-1), price(3:end)];
 
 %shuffle rows
 data = data(randperm(size(data, 1)), :);
