@@ -1,6 +1,8 @@
 # cryptopredict
 
-The aim of this project is for me to gain some practical experience with ML techniques while researching and working on another topic I am interested in - and perhaps accurate predictions leading to $$$$. 
+The aim of this project is for me to gain some practical experience with ML techniques while researching and working on another topic I am interested in - and perhaps accurate predictions leading to $$$$.
+
+The goal is to be able to predict prices within 1% accuracy, thus making the predicton useful for trading.
 
 Implementation
 
