@@ -16,28 +16,24 @@ Backslash
 
 Featureset_1
 Month, Day of Month, Price from previous day, Market Cap from previous day, Volume from previous day
-Data is kept sorted -> we want to identify patterns, and these features do not bear indication of historic data when shuffled
+These are the initial simple features, that we get straight from the downloaded data.
+Data is kept sorted -> we want to identify patterns, and these features do not bear indication of historic data when shuffled.
 
 | Data set | Training | Validation |   Test  |
 |  :---:   |    :-:   |     :-:    |    :-:  |
-|    R2    |  0.99443 |   1.3768   | 4.4798% |
-
-Training error
-R2 = 0.99443
-RMSE = 1.3768
-RMSPE =  4.4798%
-
-Validation error
-R2 = 0.98144
-RMSE = 131.4077
-RMSPE =  2.9718%
-
-Test error
-R2 = 0.99415
-RMSE = 392.9789
-RMSPE =  3.458%
+|    R2    |  0.99443 |   0.98144  | 0.99415 |
+|   RMSE   |  1.3768 |   131.4077   | 392.9789 |
+|   RMSPE  |  4.4798% |   2.9718%   | 3.458% |
 
 Featureset_2
+Current day of year, current day of week, Price from previous day, Market Cap from previous day, Volume from previous day
+Introducing day of year and day of week as features resulted in slightly worse scores - due to probable redundancy. The day of year and the day of week seem to be more indicative of trade behavior, replacing Month and day of Month resulted in a slight improvement.
 
+| Data set | Training | Validation |   Test  |
+|  :---:   |    :-:   |     :-:    |    :-:  |
+|    R2    |  0.99442 |   0.98205  | 0.9943 |
+|   RMSE   |  2.7093 |   121.5549   | 331.7271 |
+|   RMSPE  |  4.345% |   2.8899%   | 3.3506% |
 
-TODO: determine bias or variance?
+Featureset_3
+
