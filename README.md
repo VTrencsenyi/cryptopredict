@@ -18,6 +18,10 @@ Featureset_1
 Month, Day of Month, Price from previous day, Market Cap from previous day, Volume from previous day
 Data is kept sorted -> we want to identify patterns, and these features do not bear indication of historic data when shuffled
 
+| Data set | Training | Validation |   Test  |
+|  :---:   |    :-:   |     :-:    |    :-:  |
+|    R2    |  0.99443 |   1.3768   | 4.4798% |
+
 Training error
 R2 = 0.99443
 RMSE = 1.3768
@@ -32,5 +36,8 @@ Test error
 R2 = 0.99415
 RMSE = 392.9789
 RMSPE =  3.458%
+
+Featureset_2
+
 
 TODO: determine bias or variance?
