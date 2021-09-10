@@ -27,3 +27,15 @@ We get the following metrics after using the simple feature set and the backslas
 |   RMSE   |  1.3768 |   131.4077   | 392.9789 |
 |   RMSPE  |  4.4798% |   2.9718%   | 3.458% |
 |   Max % Err  |  25.7319% |   16.4722%   | 48.3099% |
+
+I want to ideally keep the RMSPE below 1% and the maximum error below 3%, to be able to state the predictions are useful.
+
+In the next step I calculated the following features from the previous data: day of year, day of week. I also found that one of the most widely used "indicators" is the Simple Moving Average, more specifically the 5, 8, 13 period SMA is used for day trading.
+
+After including these features, the metrics were the following:
+| Data set | Training | Validation |   Test  |
+|  :---:   |    :-:   |     :-:    |    :-:  |
+|    R2    |  0.99723 |   0.99013 | 0.99721 |
+|   RMSE   |  0.064662|   112.8766   | 392.9789 |
+|   RMSPE  |  2.4164% |   2.2019%   | 2.5706% |
+|   Max % Err  |  23.5742% |   12.6825%   | 22.997% |
