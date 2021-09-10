@@ -1,6 +1,6 @@
 # cryptopredict
 
-The aim of this project is for me to gain some practical experience with ML techniques while researching and working on another topic I am interested in - and perhaps to generate accurate predictions leading to $$$$. 
+The aim of this project is to experiment with ML techniques while researching and working on another topic I am interested in - and perhaps to generate accurate predictions leading to $$$$. 
 
 Implementation
 
