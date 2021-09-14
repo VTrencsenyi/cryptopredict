@@ -1,52 +1,58 @@
-%% load dataset 
-
-%entire dataset
+%% data preparation step
 file = 'btc-usd-max.csv';
-
-%small dataset for catching code bugs
-%file = 'btc-usd-max - small.csv';
-
-[X, X_shuffled, y, y_shuffled] = loadXy(file);
-
-%generate training set, validation set, test set
-% save unshuffled data for plotting, debugging and use shuffled data for
-% training
 ratio = 0.6;
-[X_train, X_val, X_test, y_train, y_val, y_test] = divideData(X, y, ratio);
-[X_trainShuf, X_valShuf, X_testShuf, y_trainShuf, y_valShuf, y_testShuf]...
-    = divideData(X_shuffled, y_shuffled, ratio);
+[X_train, X_val, X_test, y_train, y_val, y_test, mu, sigma] ...
+    = runPreprocessing(file, ratio);
+%% model optimization
+%mdl = fitlm(X_train, y_train)
+%mdl = stepwiselm(X_train, y_train)
 
-%% normalize features
+%% learning step
+%backslash operator
+theta = X_train\y_train;
 
-[X_trainShuf, mu, sigma] = normalize(X_trainShuf);
+%gradient descent 
+%theta2 = [1, X_train(:,8:9)]\y_train;
 
-%% solve equation
-theta = X_trainShuf\y_trainShuf;
-%% predict
-
-y_hat = predict(X_test, theta, sigma);
-
-%% Gradient descent
-%theta = rand(size(X_train,2), 1);
-theta = zeros(size(X_train,2), 1);
-
-%TODO I am using present day data, which is not available for real
-%predictions. Use last day data + gradients etc.
-
-%% run gradient descent
-
-%todo: optimize n_iters and alpha
-n_iters = 1000;
-alpha = 0.5;
-[theta, J_history] = gradientDescent(X_train, y_train, theta, alpha, n_iters);
-%plot(J_history);
-
-%% evaluate accuracy with validation set
-predictions = X_val * theta;
-%plot(computeCost(X_val, y_val, theta));
-
-
-%use R2, F + other metrics
-
-
-%% test with test set
+%normal equation 
+%theta = inv((transpose(X)*X))*transpose(X)*y
+%% predict values
+%y_hatTrain = predict_n(X_train, theta, sigma);
+[y_hatTrain,y_hatVal,y_hatTest] = predictSets(theta,X_train,X_val,X_test);
+%% Get metrics
+[r2_train,rmse_train,rmspe_train,max_train, ...
+          r2_val,rmse_val,rmspe_val,max_val, ...
+          r2_test, rmse_test, rmspe_test, max_test] ...
+          = calcMetrics(y_train, y_hatTrain, ...
+                                   y_val, y_hatVal, y_test, y_hatTest);
+%% visualise
+tiledlayout(1,3)
+nexttile
+plot(y_train)
+hold on
+plot(y_hatTrain)
+hold on
+text(100,14000,['R2: ', num2str(r2_train)])
+text(100,13000,['RMSE: ', num2str(rmse_train)])
+text(100,12000,['RMSPE: ', num2str(rmspe_train)])
+text(100,11000,['Max % Err: ', num2str(max_train)])
+title('Training set')
+nexttile
+plot(y_val)
+hold on
+plot(y_hatVal)
+hold on
+text(20,10000,['R2: ', num2str(r2_val)])
+text(20,9500,['RMSE: ', num2str(rmse_val)])
+text(20,9000,['RMSPE: ', num2str(rmspe_val)])
+text(20,8500,['Max % Err: ', num2str(max_val)])
+title('Validation set')
+nexttile
+plot(y_test)
+hold on
+plot(y_hatTest)
+title('Test set')
+text(20,50000,['R2: ', num2str(r2_test)])
+text(20,45000,['RMSE: ', num2str(rmse_test)])
+text(20,40000,['RMSPE: ', num2str(rmspe_test)])
+text(20,35000,['Max % Err: ', num2str(max_test)])
