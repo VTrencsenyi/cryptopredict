@@ -16,7 +16,7 @@ I use R2 and RMSE to evaluate how well the model does. In addition I also implem
 Generating features
 
 We can easily get the following predictors from the downloaded data: Month, Day of Month, Price from previous day, Market Cap from previous day, Volume from previous day
-
+Note: the "price" corresponds to the closing price at that day.
 We get the following metrics after using the simple feature set and the backslash opearator.
 
 | Data / Metric | Training | Validation |   Test  |
@@ -43,14 +43,28 @@ A human can only digest a limited amount of information, hence traders generally
 | Data / Metric | Training | Validation |   Test  |
 |  :---:   |    :-:   |     :-:    |    :-:  |
 |    R2    | 1 | 1 | 1 |
-|   RMSE   | 1.3041e-12 | 3.7503e-12 | 0.9876 |
-|   RMSPE  |  6.6399e-14% | 5.7919e-14% | 0.0021879 |
-|   Max % Err  |  2.4212e-13% | 1.7579e-13% | 1.2318% |
+|   RMSE   | 4.9742e-13 | 5.5038e-12 | 0.9876 |
+|   RMSPE  |  7.7026e-14% | 7.4532e-14% | 0.0021879 |
+|   Max % Err  |  2.4563e-13% | 2.1449e-13% | 1.2318% |
 
 As we can see our prediction errors in the training and validation sets are nearly insignificant. Even with last prediction being an outlier and heavily affecting the scores, our average percentage error is still far below one percent.
 
--reduce features for similar results
+We can use Matlab's stepwiselm function to narrow down our model to the most important features. The results is the following:
+y ~ 1 + x8 + x9
 
+where x8 and x9 corresponds to SMA2 and SMA3.
+
+After removing the other features from the model, we get the following results:
+| Data / Metric | Training | Validation |   Test  |
+|  :---:   |    :-:   |     :-:    |    :-:  |
+|    R2    | 1 | 1 | 1 |
+|   RMSE   | 1.0333e-12 | 3.0936e-12 | 0.9876 |
+|   RMSPE  |  4.3732e-14% | 4.5599e-14% | 0.0021879 |
+|   Max % Err  |  1.1214e-13% | 1.0094e-13% | 1.2318% |
+
+As we can see the results are very similar, the metrics on the Test Set show the exact same performance.
+
+The execution time for the learning step is 0.001253 seconds with the large feature set, while with the optimised feature set it is down to 0.000079 seconds.
 
 -include some graphs, update results with fresh data
 -add evaulation
