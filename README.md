@@ -4,10 +4,6 @@ The aim of this project is to experiment with ML techniques while researching an
 
 Implementation
 
-Algorithms
-gradient descent
-backslash
-
 Optimization
 In general I used 60% of the data for training, 20% for validation and 20% for testing.
 Data is kept sorted -> we want to identify patterns, and these features do not bear indication of historic data when shuffled.
@@ -66,9 +62,7 @@ As we can see the results are very similar, the metrics on the Test Set show the
 
 The execution time for the learning step is 0.001253 seconds with the large feature set, while with the optimised feature set it is down to 0.000079 seconds.
 
+TODO:
 -include some graphs, update results with fresh data
 -add evaulation
 -add future ideas
-
-
-Evaluation
